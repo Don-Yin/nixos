@@ -1,0 +1,234 @@
+/* 
+ * Modern Waybar Style
+ * Using a pastel/dark theme (inspired by Catppuccin) 
+ */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 11px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: rgba(30, 30, 46, 0.6); /* Dark semi-transparent background */
+    color: #cdd6f4;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+window#waybar.hidden {
+    opacity: 0.2;
+}
+
+/* Workspaces */
+#workspaces {
+    background-color: #1e1e2e;
+    margin: 0 4px;
+    padding: 0;
+    border-radius: 16px;
+}
+
+#workspaces button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #cdd6f4;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+}
+
+#workspaces button:hover {
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inherit;
+    text-shadow: inherit;
+}
+
+#workspaces button.focused {
+    background-color: #cba6f7; /* Lavender */
+    color: #1e1e2e;
+    box-shadow: none;
+    min-width: 20px;
+}
+
+#workspaces button.urgent {
+    background-color: #eba0ac; /* Red/Pink */
+    color: #1e1e2e;
+}
+
+/* Modules General Style */
+#clock,
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#network,
+#pulseaudio,
+#wireplumber,
+#custom-media,
+#tray,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#mpd,
+#custom-launcher,
+#power-profiles-daemon,
+#language {
+    padding: 0 6px;
+    margin: 0 2px;
+    color: #1e1e2e; /* Text is dark on colored pills */
+    border-radius: 10px;
+    background-color: #313244; /* Default fallback */
+    font-weight: bold;
+}
+
+/* Left Modules */
+#custom-launcher {
+    background-color: #89b4fa; /* Blue */
+    color: #1e1e2e;
+    padding: 0 10px; /* Bigger padding for the icon */
+    margin-left: 6px;
+}
+
+#mode {
+    background-color: #f9e2af;
+    color: #1e1e2e;
+}
+
+/* Right Modules */
+#idle_inhibitor {
+    background-color: #45475a;
+    color: #cdd6f4;
+}
+
+#idle_inhibitor.activated {
+    background-color: #cdd6f4;
+    color: #1e1e2e;
+}
+
+#power-profiles-daemon {
+    background-color: #45475a;
+    color: #cdd6f4;
+}
+
+#pulseaudio {
+    background-color: #fab387; /* Peach */
+}
+
+#pulseaudio.muted {
+    background-color: #585b70;
+    color: #cdd6f4;
+}
+
+#wireplumber {
+    background-color: #fab387;
+}
+
+#wireplumber.muted {
+    background-color: #585b70;
+    color: #cdd6f4;
+}
+
+#network {
+    background-color: #a6e3a1; /* Green */
+}
+
+#network.disconnected {
+    background-color: #f38ba8; /* Red */
+}
+
+#cpu {
+    background-color: #89b4fa; /* Blue */
+}
+
+#memory {
+    background-color: #cba6f7; /* Mauve */
+}
+
+#disk {
+    background-color: #94e2d5; /* Teal */
+}
+
+#temperature {
+    background-color: #f9e2af; /* Yellow */
+}
+
+#temperature.critical {
+    background-color: #eba0ac; /* Red */
+}
+
+#backlight {
+    background-color: #f9e2af; /* Yellow */
+}
+
+#language {
+    background-color: #b4befe;
+}
+
+#battery {
+    background-color: #a6e3a1; /* Green */
+}
+
+#battery.charging, #battery.plugged {
+    background-color: #94e2d5; /* Teal */
+}
+
+#battery.critical:not(.charging) {
+    background-color: #f38ba8; /* Red */
+    color: #1e1e2e;
+    animation-name: blink;
+    animation-duration: 0.5s;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes blink {
+    to {
+        background-color: #ffffff;
+        color: #000000;
+    }
+}
+
+#clock {
+    background-color: #cba6f7; /* Mauve */
+    margin-right: 6px;
+}
+
+#tray {
+    background-color: #313244;
+    margin-right: 6px;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #eb4d4b;
+}
+
+/* Music/Media */
+#custom-media, #mpd {
+    background-color: #f2cdcd; /* Flamingo */
+    color: #1e1e2e;
+}
+
+/* Window Title */
+window#waybar #window {
+    background-color: transparent;
+    color: #cdd6f4;
+    margin: 0 5px;
+}
+
+tooltip {
+    background: #1e1e2e;
+    border: 1px solid #cba6f7;
+}
+
+tooltip label {
+    color: #cdd6f4;
+}

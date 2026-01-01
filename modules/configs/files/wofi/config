@@ -1,0 +1,15 @@
+mode=drun
+show=drun
+width=63%
+height=63%
+location=center
+no_actions=true
+term=kitty
+allow_images=true
+image_size=48
+insensitive=true
+prompt=Search...
+filter_rate=100
+allow_markup=true
+cache_file=/dev/null
+
