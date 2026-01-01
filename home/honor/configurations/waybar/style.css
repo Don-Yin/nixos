@@ -109,11 +109,11 @@ window#waybar.hidden {
 
 /* Clock - Center, clean */
 #clock {
-    background-color: transparent;
+    background-color: rgba(30, 30, 46, 0.8);
     font-size: 14px;
     font-weight: bold;
     color: #33ccff;
-    border: none;
+    border: 1px solid rgba(51, 204, 255, 0.2);
     padding: 4px 16px;
 }
 

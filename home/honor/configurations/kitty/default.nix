@@ -9,8 +9,9 @@
       window_padding_width = 10;
       
       # Fonts
-      font_family = "JetBrainsMono Nerd Font";
+      font_family = "Iosevka Nerd Font";
       font_size = 12;
+
 
       # Hyprland Blue Theme
       foreground = "#cdd6f4";
