@@ -8,7 +8,7 @@
   services.xremap = {
     enable = true;
     withWlroots = true;
-    deviceName = "AT Translated Set 2 keyboard";
+    deviceNames = [ "AT Translated Set 2 keyboard" ];
     config = {
       modmap = [
         {
