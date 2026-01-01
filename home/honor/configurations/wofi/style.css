@@ -1,11 +1,11 @@
 /* 
- * Wofi Style - Catppuccin Mocha inspired
+ * Wofi Style - Hyprland Blue & Semi-Transparent
  */
 
 window {
     margin: 0px;
-    border: 2px solid #cba6f7; /* Lavender border */
-    background-color: #1e1e2e; /* Base background */
+    border: 2px solid #33ccff; /* Hyprland Blue border */
+    background-color: rgba(30, 30, 46, 0.8); /* Semi-transparent base #1e1e2e */
     border-radius: 16px;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
@@ -17,7 +17,7 @@ window {
     border: none;
     border-radius: 10px;
     color: #cdd6f4;
-    background-color: #313244; /* Surface0 */
+    background-color: rgba(49, 50, 68, 0.5); /* Surface0 semi-transparent */
     font-weight: bold;
 }
 
@@ -58,11 +58,10 @@ window {
 }
 
 #entry:selected {
-    background-color: #cba6f7; /* Lavender */
+    background-color: #33ccff; /* Hyprland Blue */
     color: #1e1e2e; /* Dark text on selection */
 }
 
 #entry:selected #text {
     color: #1e1e2e;
 }
-

@@ -25,6 +25,7 @@
 
   imports = [
     ./services/xremap.nix
+    ./configurations/kitty/default.nix
   ];
 
   programs.bash = {

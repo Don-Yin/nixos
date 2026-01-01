@@ -1,188 +1,139 @@
 /* 
- * Modern Waybar Style
- * Using a pastel/dark theme (inspired by Catppuccin) 
+ * Waybar Style - Clean Hyprland Blue Design
  */
 
 * {
     border: none;
     border-radius: 0;
     font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 11px;
+    font-size: 13px;
     min-height: 0;
 }
 
 window#waybar {
-    background: rgba(30, 30, 46, 0.6); /* Dark semi-transparent background */
+    background: transparent;
     color: #cdd6f4;
-    transition-property: background-color;
-    transition-duration: .5s;
 }
 
 window#waybar.hidden {
     opacity: 0.2;
 }
 
+/* Main bar container with proper margins */
+#waybar {
+    background: rgba(30, 30, 46, 0.85);
+    margin: 8px 12px;
+    padding: 0;
+    border-radius: 0;
+    border: 2px solid rgba(51, 204, 255, 0.4);
+}
+
 /* Workspaces */
 #workspaces {
-    background-color: #1e1e2e;
-    margin: 0 4px;
+    background-color: rgba(49, 50, 68, 0.6);
+    margin: 0;
     padding: 0;
-    border-radius: 16px;
+    border-radius: 0;
 }
 
 #workspaces button {
-    padding: 0 5px;
+    padding: 4px 10px;
     background-color: transparent;
     color: #cdd6f4;
-    border-radius: 16px;
+    border-radius: 0;
     transition: all 0.3s ease;
+    min-width: 30px;
 }
 
 #workspaces button:hover {
-    background: rgba(255, 255, 255, 0.1);
-    box-shadow: inherit;
-    text-shadow: inherit;
+    background: rgba(51, 204, 255, 0.2);
 }
 
-#workspaces button.focused {
-    background-color: #cba6f7; /* Lavender */
+#workspaces button.active {
+    background-color: #33ccff;
     color: #1e1e2e;
-    box-shadow: none;
-    min-width: 20px;
+    font-weight: bold;
 }
 
 #workspaces button.urgent {
-    background-color: #eba0ac; /* Red/Pink */
+    background-color: #f38ba8;
     color: #1e1e2e;
 }
 
-/* Modules General Style */
+/* Module Pills - General Style */
 #clock,
 #battery,
 #cpu,
 #memory,
-#disk,
 #temperature,
 #backlight,
 #network,
 #pulseaudio,
-#wireplumber,
-#custom-media,
 #tray,
-#mode,
-#idle_inhibitor,
-#scratchpad,
-#mpd,
-#custom-launcher,
 #power-profiles-daemon,
 #language {
-    padding: 0 6px;
-    margin: 0 2px;
-    color: #1e1e2e; /* Text is dark on colored pills */
-    border-radius: 10px;
-    background-color: #313244; /* Default fallback */
-    font-weight: bold;
-}
-
-/* Left Modules */
-#custom-launcher {
-    background-color: #89b4fa; /* Blue */
-    color: #1e1e2e;
-    padding: 0 10px; /* Bigger padding for the icon */
-    margin-left: 6px;
-}
-
-#mode {
-    background-color: #f9e2af;
-    color: #1e1e2e;
-}
-
-/* Right Modules */
-#idle_inhibitor {
-    background-color: #45475a;
+    padding: 4px 12px;
+    margin: 0;
+    background-color: rgba(49, 50, 68, 0.6);
+    border-radius: 0;
     color: #cdd6f4;
+    border: 1px solid rgba(51, 204, 255, 0.2);
+    transition: all 0.3s ease;
 }
 
-#idle_inhibitor.activated {
-    background-color: #cdd6f4;
-    color: #1e1e2e;
+/* Hover effects for interactive modules */
+#power-profiles-daemon:hover,
+#pulseaudio:hover,
+#network:hover,
+#battery:hover,
+#backlight:hover {
+    background-color: rgba(51, 204, 255, 0.3);
+    border-color: rgba(51, 204, 255, 0.6);
 }
 
+/* Power Profile - Prominent left corner */
 #power-profiles-daemon {
-    background-color: #45475a;
-    color: #cdd6f4;
+    background-color: rgba(51, 204, 255, 0.3);
+    color: #33ccff;
+    font-size: 16px;
+    padding: 4px 14px;
+    margin-left: 0;
+    border: 1px solid rgba(51, 204, 255, 0.5);
+    border-radius: 0;
 }
 
-#pulseaudio {
-    background-color: #fab387; /* Peach */
+#power-profiles-daemon:hover {
+    background-color: rgba(51, 204, 255, 0.5);
+    box-shadow: 0 0 8px rgba(51, 204, 255, 0.4);
 }
 
-#pulseaudio.muted {
-    background-color: #585b70;
-    color: #cdd6f4;
+/* Clock - Center, clean */
+#clock {
+    background-color: transparent;
+    font-size: 14px;
+    font-weight: bold;
+    color: #33ccff;
+    border: none;
+    padding: 4px 16px;
 }
 
-#wireplumber {
-    background-color: #fab387;
-}
-
-#wireplumber.muted {
-    background-color: #585b70;
-    color: #cdd6f4;
-}
-
-#network {
-    background-color: #a6e3a1; /* Green */
-}
-
-#network.disconnected {
-    background-color: #f38ba8; /* Red */
-}
-
-#cpu {
-    background-color: #89b4fa; /* Blue */
-}
-
-#memory {
-    background-color: #cba6f7; /* Mauve */
-}
-
-#disk {
-    background-color: #94e2d5; /* Teal */
-}
-
-#temperature {
-    background-color: #f9e2af; /* Yellow */
-}
-
-#temperature.critical {
-    background-color: #eba0ac; /* Red */
-}
-
-#backlight {
-    background-color: #f9e2af; /* Yellow */
-}
-
-#language {
-    background-color: #b4befe;
-}
-
+/* Status indicators with color coding */
 #battery {
-    background-color: #a6e3a1; /* Green */
+    color: #a6e3a1;
 }
 
 #battery.charging, #battery.plugged {
-    background-color: #94e2d5; /* Teal */
+    color: #94e2d5;
+}
+
+#battery.warning {
+    color: #f9e2af;
 }
 
 #battery.critical:not(.charging) {
-    background-color: #f38ba8; /* Red */
+    background-color: #f38ba8;
     color: #1e1e2e;
-    animation-name: blink;
-    animation-duration: 0.5s;
-    animation-timing-function: linear;
-    animation-iteration-count: infinite;
-    animation-direction: alternate;
+    animation: blink 0.5s linear infinite alternate;
 }
 
 @keyframes blink {
@@ -192,14 +143,52 @@ window#waybar.hidden {
     }
 }
 
-#clock {
-    background-color: #cba6f7; /* Mauve */
-    margin-right: 6px;
+#network {
+    color: #33ccff;
 }
 
+#network.disconnected {
+    color: #f38ba8;
+}
+
+#pulseaudio {
+    color: #33ccff;
+}
+
+#pulseaudio.muted {
+    color: #f38ba8;
+}
+
+#cpu {
+    color: #89b4fa;
+}
+
+#memory {
+    color: #cba6f7;
+}
+
+#temperature {
+    color: #f9e2af;
+}
+
+#temperature.critical {
+    color: #f38ba8;
+    background-color: rgba(243, 139, 168, 0.2);
+}
+
+#backlight {
+    color: #f9e2af;
+}
+
+#language {
+    color: #b4befe;
+}
+
+/* Tray */
 #tray {
-    background-color: #313244;
-    margin-right: 6px;
+    background-color: rgba(30, 30, 46, 0.6);
+    padding: 4px 8px;
+    margin-right: 0;
 }
 
 #tray > .passive {
@@ -208,25 +197,15 @@ window#waybar.hidden {
 
 #tray > .needs-attention {
     -gtk-icon-effect: highlight;
-    background-color: #eb4d4b;
+    background-color: #f38ba8;
 }
 
-/* Music/Media */
-#custom-media, #mpd {
-    background-color: #f2cdcd; /* Flamingo */
-    color: #1e1e2e;
-}
-
-/* Window Title */
-window#waybar #window {
-    background-color: transparent;
-    color: #cdd6f4;
-    margin: 0 5px;
-}
-
+/* Tooltips */
 tooltip {
-    background: #1e1e2e;
-    border: 1px solid #cba6f7;
+    background: rgba(30, 30, 46, 0.95);
+    border: 2px solid #33ccff;
+    border-radius: 8px;
+    padding: 8px;
 }
 
 tooltip label {
