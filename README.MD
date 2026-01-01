@@ -16,6 +16,6 @@ nixos-rebuild switch --flake .#magicbook
 
 if you are not in this directory:
 ```bash
-nixos-rebuild switch --flake ~/nix-configurations#magicbook
+sudo nixos-rebuild switch --flake ~/nix-configurations#magicbook
 ```
 
