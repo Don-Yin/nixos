@@ -22,5 +22,10 @@
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
+
+  programs.bash = {
+    enable = true;
+    profileExtra = builtins.readFile ./dotfiles/bash_profile.sh;
+  };
 }
 
