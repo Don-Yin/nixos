@@ -31,6 +31,7 @@
   programs.bash = {
     enable = true;
     profileExtra = builtins.readFile ./dotfiles/bash_profile.sh;
+    initExtra = builtins.readFile ./dotfiles/bashrc.sh;
   };
 
   # Manage dotfiles via Home Manager
