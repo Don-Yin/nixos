@@ -15,7 +15,6 @@
     google-chrome
     localsend
     kitty
-    hyprpaper
     wofi
     waybar
     dunst
