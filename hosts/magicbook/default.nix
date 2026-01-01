@@ -17,7 +17,6 @@
       ../../modules/desktop/apps.nix
       ../../modules/desktop/font.nix
       ../../modules/services/openssh.nix
-      ../../modules/configs/index.nix
     ];
 
   networking.hostName = "magicbook"; # Define your hostname.

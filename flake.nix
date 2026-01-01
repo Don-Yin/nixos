@@ -8,9 +8,11 @@
       url = "github:nix-community/home-manager/release-25.11";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    xremap-flake.url = "github:xremap/nix-flake";
   };
 
-  outputs = { self, nixpkgs, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, home-manager, xremap-flake, ... }@inputs: {
     nixosConfigurations.magicbook = nixpkgs.lib.nixosSystem {
       system = "x86_64-linux";
       specialArgs = {inherit inputs;};

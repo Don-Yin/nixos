@@ -3,7 +3,7 @@
 {
   users.users.honor = {
     isNormalUser = true;
-    extraGroups = [ "wheel" "networkmanager" ]; # 'wheel' allows sudo
+    extraGroups = [ "wheel" "networkmanager" "input" "uinput" ]; # 'wheel' allows sudo
 
     packages = with pkgs; [
       tree

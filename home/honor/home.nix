@@ -23,9 +23,22 @@
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;
 
+  imports = [
+    ./services/xremap.nix
+  ];
+
   programs.bash = {
     enable = true;
     profileExtra = builtins.readFile ./dotfiles/bash_profile.sh;
+  };
+
+  # Manage dotfiles via Home Manager
+  xdg.configFile = {
+    "hypr/hyprland.conf".source = ./configurations/hyprland/hyprland.conf;
+    "waybar/config".source = ./configurations/waybar/config;
+    "waybar/style.css".source = ./configurations/waybar/style.css;
+    "wofi/config".source = ./configurations/wofi/config;
+    "wofi/style.css".source = ./configurations/wofi/style.css;
   };
 }
 

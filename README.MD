@@ -10,7 +10,7 @@
 to apply changes to the system (rebuild):
 
 ```bash
-# Apply configuration for 'magicbook' host
+# apply configuration for 'magicbook' host
 nixos-rebuild switch --flake .#magicbook
 ```
 

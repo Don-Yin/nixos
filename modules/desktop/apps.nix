@@ -28,9 +28,21 @@
     seahorse # gui for gnome-keyring
   ];
 
+  # clash-verge; uncomment when not on proxy
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+  };
+
   environment.sessionVariables = {
     DEFAULT_BROWSER = "${pkgs.google-chrome}/bin/google-chrome-stable";
     BROWSER = "google-chrome-stable";
+
+    # proxy settings - adjust port if you changed it in Clash Verge
+    http_proxy = "http://127.0.0.1:7897";
+    https_proxy = "http://127.0.0.1:7897";
+    all_proxy = "socks5://127.0.0.1:7897";
+
     XCURSOR_THEME = "Adwaita";
     XCURSOR_SIZE = "24";
     GTK_THEME = "Adwaita";
