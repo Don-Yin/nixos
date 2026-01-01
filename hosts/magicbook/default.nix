@@ -5,7 +5,7 @@
 # to remote edit this file:
 # sudo chown honor:users /etc/nixos/configuration.nix
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   imports =
@@ -21,13 +21,18 @@
 
   networking.hostName = "magicbook"; # Define your hostname.
 
-  # Use the systemd-boot EFI boot loader.
+  # use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   services.xserver.enable = false;
   services.displayManager.sddm.enable = false;
+
+  # enable uinput for xremap
+  hardware.uinput.enable = true;
+  users.groups.uinput.members = [ "honor" ];
+  users.groups.input.members = [ "honor" ];
 
   # This option defines the first version of NixOS you have installed on this particular machine,
   # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
