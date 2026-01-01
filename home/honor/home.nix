@@ -8,7 +8,7 @@
   home.packages = with pkgs; [
     fastfetch
     ripgrep
-    # Add other packages here
+    brightnessctl
   ];
 
   # This value determines the Home Manager release that your configuration is
