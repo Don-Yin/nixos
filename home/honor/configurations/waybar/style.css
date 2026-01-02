@@ -71,6 +71,15 @@ window#waybar.hidden {
 #pulseaudio,
 #tray,
 #power-profiles-daemon,
+#language {
+    padding: 4px 12px;
+    margin: 0;
+    background-color: rgba(49, 50, 68, 0.6);
+    border-radius: 0;
+    color: #cdd6f4;
+    border: 1px solid rgba(51, 204, 255, 0.2);
+    transition: all 0.3s ease;
+}
 
 /* Hover effects for interactive modules */
 #power-profiles-daemon:hover,
@@ -169,6 +178,10 @@ window#waybar.hidden {
 
 #backlight {
     color: #f9e2af;
+}
+
+#language {
+    color: #b4befe;
 }
 
 /* Tray */
