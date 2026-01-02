@@ -12,7 +12,6 @@
       font_family = "Iosevka Nerd Font";
       font_size = 12;
 
-
       # Hyprland Blue Theme
       foreground = "#cdd6f4";
       background = "#1e1e2e";

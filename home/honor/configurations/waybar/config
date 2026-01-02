@@ -16,7 +16,6 @@
         "memory",
         "temperature",
         "backlight",
-        "hyprland/language",
         "battery",
         "tray"
     ],
@@ -24,11 +23,6 @@
         "disable-scroll": true,
         "all-outputs": true,
         "format": "{id}"
-    },
-    "hyprland/language": {
-        "format": "{}",
-        "format-en": "EN",
-        "format-zh": "CN"
     },
     "power-profiles-daemon": {
         "format": "{icon}",

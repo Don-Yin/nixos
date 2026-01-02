@@ -25,6 +25,7 @@
 
   imports = [
     ./services/xremap.nix
+    ./services/input.nix
     ./configurations/kitty/default.nix
   ];
 

@@ -11,6 +11,7 @@
 
   environment.systemPackages = with pkgs; [
     git
+    htop
     nodejs_24
     google-chrome
     localsend
