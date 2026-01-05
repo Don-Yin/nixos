@@ -24,8 +24,8 @@
       keymap = [
         {
           name = "MacOS Basic Shortcuts (Global)";
-          # Exclude terminal apps where we want Super to handle window management or different shortcuts
-          application = { not = [ "kitty" "Kitty" ]; };
+          # exclude terminal apps where we want super to handle window management or different shortcuts
+          application = { not = [ "kitty" "Kitty" "google-chrome" "Google-chrome" ]; };
           remap = {
             # Since Alt is now Super, we map Super+Key (which is physically Alt+Key) to Ctrl+Key
             "Super-c" = "C-c";
@@ -35,9 +35,25 @@
             "Super-a" = "C-a";
             "Super-f" = "C-f";
             "Super-t" = "C-t";
-            "Super-w" = "C-w";
+            # "Super-w" = "C-w"; # Disabled globally to allow Hyprland to handle window closing
             "Super-r" = "C-r";
             "Super-s" = "C-s";
+          };
+        }
+        {
+          name = "Browser Shortcuts (Chrome)";
+          application = { only = [ "google-chrome" "Google-chrome" ]; };
+          remap = {
+             "Super-c" = "C-c";
+             "Super-v" = "C-v";
+             "Super-x" = "C-x";
+             "Super-z" = "C-z";
+             "Super-a" = "C-a";
+             "Super-f" = "C-f";
+             "Super-t" = "C-t";
+             "Super-w" = "C-w"; # Close tab
+             "Super-r" = "C-r";
+             "Super-s" = "C-s";
           };
         }
         {

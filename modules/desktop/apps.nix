@@ -22,6 +22,7 @@
     networkmanagerapplet
     tmux
     adwaita-icon-theme
+    code-cursor
     glib # for gsettings
     pavucontrol
     helvum
@@ -35,6 +36,7 @@
     XCURSOR_THEME = "Adwaita";
     XCURSOR_SIZE = "24";
     GTK_THEME = "Adwaita";
+    NIXOS_OZONE_WL = "1";
   };
 
 }

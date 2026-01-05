@@ -9,7 +9,9 @@
       fcitx5-gtk
       libsForQt5.fcitx5-qt
       qt6Packages.fcitx5-qt
-      qt6Packages.fcitx5-chinese-addons
+      fcitx5-rime
+      rime-ice
+      qt6Packages.fcitx5-chinese-addons # keep as fallback
     ];
   };
 
@@ -38,18 +40,28 @@
       [Groups/0]
       Name=Default
       Default Layout=us
-      DefaultIM=pinyin
+      DefaultIM=rime
 
       [Groups/0/Items/0]
       Name=keyboard-us
       Layout=
 
       [Groups/0/Items/1]
-      Name=pinyin
+      Name=rime
       Layout=
 
       [GroupOrder]
       0=Default
+    '';
+    "fcitx5/rime/default.custom.yaml".text = ''
+      patch:
+        "menu/page_size": 9
+        schema_list:
+          - schema: rime_ice
+    '';
+    "fcitx5/rime/rime_ice.custom.yaml".text = ''
+      patch:
+        "switches/@0/reset": 1
     '';
   };
 }
