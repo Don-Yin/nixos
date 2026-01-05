@@ -54,6 +54,8 @@
              "Super-w" = "C-w"; # Close tab
              "Super-r" = "C-r";
              "Super-s" = "C-s";
+             "Super-Alt-Left" = "C-Shift-Tab";
+             "Super-Alt-Right" = "C-Tab";
           };
         }
         {
