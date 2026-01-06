@@ -6,6 +6,11 @@
   export http_proxy="http://192.168.1.5:1082" && export https_proxy="http://192.168.1.5:1082" && sudo -E git push -u origin main
   ```
 
+## cleanup
+```bash
+sudo nix-collect-garbage -d && nix-store --optimise
+```
+
 ## usage
 to apply changes to the system (rebuild):
 
