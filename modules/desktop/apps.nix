@@ -4,6 +4,7 @@
   hardware.graphics.enable = true;
   nixpkgs.config.allowUnfree = true;
   programs.nix-ld.enable = true; # for nix-ld to work with cursor remote
+  programs.kdeconnect.enable = true;
   programs.hyprland = { enable = true; xwayland.enable = true; };
   services.power-profiles-daemon.enable = true;
   services.gnome.gnome-keyring.enable = true;  # key management for gnome
