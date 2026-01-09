@@ -1,5 +1,21 @@
 { config, lib, pkgs, ... }:
 
+let
+  # KDE Connect binaries can be unwrapped Qt ELFs; wrapping ensures Qt plugin + runtime deps are found at runtime.
+  # NOTE: Do not reference pkgs.kdeconnect-kde here: the top-level alias was removed when KDE Gear 5 (Qt5) EOL'd.
+  # Use the Qt 6-based package explicitly.
+  kdeconnectPkg = pkgs.kdePackages.kdeconnect-kde;
+
+  kdeconnectWrapped = pkgs.symlinkJoin {
+    name = "kdeconnect-kde-wrapped";
+    paths = [ kdeconnectPkg ];
+    nativeBuildInputs = [ pkgs.qt6.wrapQtAppsHook ];
+    buildInputs = [
+      pkgs.qt6.qtbase
+      pkgs.qt6.qtwayland
+    ];
+  };
+in
 {
   hardware.graphics.enable = true;
   nixpkgs.config.allowUnfree = true;
@@ -10,24 +26,26 @@
   services.gnome.gnome-keyring.enable = true;  # key management for gnome
   security.pam.services.login.enableGnomeKeyring = true;  # enable keyring for login
 
-  environment.systemPackages = with pkgs; [
-    git
-    htop
-    nodejs_24
-    google-chrome
-    localsend
-    kitty
-    wofi
-    waybar
-    dunst
-    networkmanagerapplet
-    tmux
-    adwaita-icon-theme
-    code-cursor
-    glib # for gsettings
-    pavucontrol
-    helvum
-    seahorse # gui for gnome-keyring
+  environment.systemPackages = [
+    pkgs.git
+    pkgs.htop
+    pkgs.nodejs_24
+    pkgs.google-chrome
+    pkgs.localsend
+    pkgs.kitty
+    pkgs.wofi
+    pkgs.waybar
+    pkgs.dunst
+    pkgs.networkmanagerapplet
+    pkgs.tmux
+    pkgs.adwaita-icon-theme
+    pkgs.code-cursor
+    pkgs.glib # for gsettings
+    pkgs.xcb-util-cursor # Qt xcb platform plugin needs libxcb-cursor.so.0
+    kdeconnectWrapped
+    pkgs.pavucontrol
+    pkgs.helvum
+    pkgs.seahorse # gui for gnome-keyring
   ];
 
   environment.sessionVariables = {
