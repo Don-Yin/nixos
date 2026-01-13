@@ -25,5 +25,6 @@ sudo nixos-rebuild switch --flake ~/nix-configurations#magicbook
 ```
 
 ## todos
-- [ ] better solutions to keys remapping
+- [x] better solutions to keys remapping
+- [] in cursor super key should function like command on macos
 

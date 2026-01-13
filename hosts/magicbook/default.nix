@@ -18,8 +18,19 @@
       ../../modules/desktop/font.nix
       ../../modules/services/openssh.nix
       ../../modules/services/vpn.nix
+      ../../modules/services/eduroam-autoconnect.nix
     ];
 
+  # China VPN / proxy (Clash Verge). Comment out this one line to disable in the next generation.
+  services.china-vpn.enable = false;
+
+  # Auto-connect to eduroam when it's available.
+  # IMPORTANT: put your password in the file below (root-only), not in this git repo / Nix store.
+  services.eduroam-autoconnect = {
+    enable = true;
+    identity = "dy323+honor@cam.ac.uk";
+    passwordFile = "/home/honor/nix-configurations/secrets/eduroam.password";
+  };
   networking.hostName = "magicbook"; # Define your hostname.
 
   # use the systemd-boot EFI boot loader.
