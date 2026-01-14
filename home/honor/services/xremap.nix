@@ -1,5 +1,63 @@
-{ inputs, ... }:
+{ inputs, lib, ... }:
 
+let
+  # ------------------------------------------------------------------------------------
+  # Keyboard design (single source of truth):
+  #
+  # - Goal: "macOS-like" muscle memory on a PC keyboard
+  #   - physical Alt acts like "Command" (Super)
+  #   - physical Super acts like "Alt"
+  #
+  # - Then, in *specific apps*, map Super+Key -> Ctrl+Key for common shortcuts:
+  #   - Chrome: copy/paste/tab close + tab switching
+  #   - Cursor: same, plus Ctrl+Shift+C/V for integrated terminal copy/paste
+  #
+  # Notes:
+  # - Hyprland uses $mainMod = SUPER so physical Alt becomes your WM modifier (via the swap).
+  # - This file intentionally avoids global "mac shortcuts everywhere" to reduce surprises.
+  # ------------------------------------------------------------------------------------
+  #
+  # Set to false if you ever want to return to normal PC layout without editing the remaps.
+  swapAltSuper = true;
+
+  chromeApps = [ "google-chrome" "Google-chrome" "google-chrome-stable" "Google-chrome-stable" ];
+  cursorApps = [ "cursor" "Cursor" ];
+
+  superAsCtrlCommon = {
+    "Super-c" = "C-c";
+    "Super-v" = "C-v";
+    "Super-x" = "C-x";
+    "Super-z" = "C-z";
+    "Super-a" = "C-a";
+    "Super-f" = "C-f";
+    "Super-t" = "C-t";
+    "Super-w" = "C-w";
+    "Super-r" = "C-r";
+    "Super-s" = "C-s";
+  };
+
+  chromeExtra = {
+    # Tab switching
+    "Super-Alt-Left" = "C-Shift-Tab";
+    "Super-Alt-Right" = "C-Tab";
+  };
+
+  cursorExtra = {
+    # Cursor/VSCode integrated terminal uses Ctrl+Shift+C/V for copy/paste.
+    "Super-Shift-c" = "C-Shift-c";
+    "Super-Shift-v" = "C-Shift-v";
+
+    # Word navigation in editor: make physical Alt+Left/Right behave like Ctrl+Left/Right.
+    # (Because we swap Alt<->Super, physical Alt becomes Super.)
+    "Super-Left" = "C-Left";
+    "Super-Right" = "C-Right";
+
+    # Line navigation (mac Fn-style): physical Super becomes Alt via the swap.
+    # So map physical Super+Left/Right to Home/End.
+    "Alt-Left" = "Home";
+    "Alt-Right" = "End";
+  };
+in
 {
   imports = [
     inputs.xremap-flake.homeManagerModules.default
@@ -12,60 +70,44 @@
     config = {
       # Swap Alt and Super so the physical Alt key acts like "Command/Super".
       # (Matches your old setup: physical Alt -> Super, physical Super -> Alt.)
-      modmap = [
-        {
-          name = "Swap Alt and Super";
-          remap = {
-            "Alt_L" = "Super_L";
-            "Alt_R" = "Super_R";
-            "Super_L" = "Alt_L";
-            "Super_R" = "Alt_R";
-          };
-        }
-      ];
+      modmap =
+        if swapAltSuper then
+          [
+            {
+              name = "Swap Alt and Super";
+              remap = {
+                "Alt_L" = "Super_L";
+                "Alt_R" = "Super_R";
+                "Super_L" = "Alt_L";
+                "Super_R" = "Alt_R";
+              };
+            }
+          ]
+        else
+          [];
 
       # Bring back "macOS-like" shortcuts for Chrome only:
       # Super+C/V/... -> Ctrl+C/V/... (copy/paste/etc).
       keymap = [
         {
           name = "Chrome: Super-as-Ctrl shortcuts";
-          application = { only = [ "google-chrome" "Google-chrome" "google-chrome-stable" "Google-chrome-stable" ]; };
-          remap = {
-            "Super-c" = "C-c";
-            "Super-v" = "C-v";
-            "Super-x" = "C-x";
-            "Super-z" = "C-z";
-            "Super-a" = "C-a";
-            "Super-f" = "C-f";
-            "Super-t" = "C-t";
-            "Super-w" = "C-w"; # close tab
-            "Super-r" = "C-r";
-            "Super-s" = "C-s";
-            "Super-Alt-Left" = "C-Shift-Tab"; # previous tab
-            "Super-Alt-Right" = "C-Tab"; # next tab
-          };
+          application = { only = chromeApps; };
+          remap = superAsCtrlCommon // chromeExtra;
         }
         {
           name = "Cursor: Super-as-Ctrl shortcuts";
-          application = { only = [ "cursor" "Cursor" ]; };
-          remap = {
-            "Super-c" = "C-c";
-            "Super-v" = "C-v";
-            # Cursor/VSCode integrated terminal uses Ctrl+Shift+C/V for copy/paste.
-            "Super-Shift-c" = "C-Shift-c";
-            "Super-Shift-v" = "C-Shift-v";
-            "Super-x" = "C-x";
-            "Super-z" = "C-z";
-            "Super-a" = "C-a";
-            "Super-f" = "C-f";
-            "Super-t" = "C-t";
-            "Super-w" = "C-w";
-            "Super-r" = "C-r";
-            "Super-s" = "C-s";
-          };
+          application = { only = cursorApps; };
+          remap = superAsCtrlCommon // cursorExtra;
         }
       ];
     };
+  };
+
+  # xremap's module ships a service WantedBy=graphical-session.target, which isn't startable
+  # in a Hyprland session started outside a display manager. Re-wire it to our session target.
+  systemd.user.services.xremap = {
+    Unit.PartOf = lib.mkForce [ "hyprland-session.target" ];
+    Install.WantedBy = lib.mkForce [ "hyprland-session.target" ];
   };
 }
 

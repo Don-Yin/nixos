@@ -18,15 +18,16 @@
   systemd.user.services.fcitx5 = {
     Unit = {
       Description = "Fcitx5 input method";
+      PartOf = [ "hyprland-session.target" ];
     };
 
     Service = {
-      ExecStart = "/etc/profiles/per-user/honor/bin/fcitx5 -D -r --disable kimpanel";
+      ExecStart = "${pkgs.fcitx5}/bin/fcitx5 -D -r --disable kimpanel";
       Restart = "on-failure";
     };
 
     Install = {
-      WantedBy = [ "graphical-session.target" ];
+      WantedBy = [ "hyprland-session.target" ];
     };
   };
 
