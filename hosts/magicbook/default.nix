@@ -27,7 +27,7 @@
   # Auto-connect to eduroam when it's available.
   # IMPORTANT: put your password in the file below (root-only), not in this git repo / Nix store.
   services.eduroam-autoconnect = {
-    enable = true;
+    enable = false;
     identity = "dy323+honor@cam.ac.uk";
     passwordFile = "/home/honor/nix-configurations/secrets/eduroam.password";
   };

@@ -6,28 +6,20 @@
   ];
 
   services.xremap = {
-    enable = true;
+    enable = true; # Chrome-only shortcuts (no global Alt/Super swapping)
     withWlroots = true;
     deviceNames = [ "AT Translated Set 2 keyboard" ];
     config = {
-      modmap = [
-        {
-          name = "Global Alt to Super (MacOS Command style)";
-          remap = {
-            "Alt_L" = "Super_L";
-            "Alt_R" = "Super_R";
-            "Super_L" = "Alt_L";
-            "Super_R" = "Alt_R";
-          };
-        }
-      ];
+      # No modmap: keep physical keys as-is (no Alt <-> Super swapping)
+      modmap = [];
+
+      # Bring back "macOS-like" shortcuts for Chrome only:
+      # Super+C/V/... -> Ctrl+C/V/... (copy/paste/etc).
       keymap = [
         {
-          name = "MacOS Basic Shortcuts (Global)";
-          # exclude terminal apps where we want super to handle window management or different shortcuts
-          application = { not = [ "kitty" "Kitty" "google-chrome" "Google-chrome" ]; };
+          name = "Chrome: Super-as-Ctrl shortcuts";
+          application = { only = [ "google-chrome" "Google-chrome" "google-chrome-stable" "Google-chrome-stable" ]; };
           remap = {
-            # Since Alt is now Super, we map Super+Key (which is physically Alt+Key) to Ctrl+Key
             "Super-c" = "C-c";
             "Super-v" = "C-v";
             "Super-x" = "C-x";
@@ -35,52 +27,14 @@
             "Super-a" = "C-a";
             "Super-f" = "C-f";
             "Super-t" = "C-t";
-            # "Super-w" = "C-w"; # Disabled globally to allow Hyprland to handle window closing
+            "Super-w" = "C-w"; # close tab
             "Super-r" = "C-r";
             "Super-s" = "C-s";
-          };
-        }
-        {
-          name = "Browser Shortcuts (Chrome)";
-          application = { only = [ "google-chrome" "Google-chrome" ]; };
-          remap = {
-             "Super-c" = "C-c";
-             "Super-v" = "C-v";
-             "Super-x" = "C-x";
-             "Super-z" = "C-z";
-             "Super-a" = "C-a";
-             "Super-f" = "C-f";
-             "Super-t" = "C-t";
-             "Super-w" = "C-w"; # Close tab
-             "Super-r" = "C-r";
-             "Super-s" = "C-s";
-             "Super-Alt-Left" = "C-Shift-Tab";
-             "Super-Alt-Right" = "C-Tab";
-          };
-        }
-        {
-          name = "Terminal Shortcuts (Kitty)";
-          application = { only = [ "kitty" "Kitty" ]; };
-          remap = {
-            # Map Cmd+C/V to standard terminal copy/paste (Ctrl+Shift+C/V)
-            "Super-c" = "C-Shift-c";
-            "Super-v" = "C-Shift-v";
-            # Leave Super-w alone so Hyprland catches it to close the window
-            # "Super-w" = "C-Shift-w"; # Optional: if you want to close tab instead
+            "Super-Alt-Left" = "C-Shift-Tab"; # previous tab
+            "Super-Alt-Right" = "C-Tab"; # next tab
           };
         }
       ];
-    };
-  };
-  
-  # create a systemd target for the Hyprland session; for xremap to work
-  systemd.user.targets.hyprland-session = {
-    Unit = {
-      Description = "Hyprland compositor session";
-      Documentation = [ "man:systemd.special(7)" ];
-      BindsTo = [ "graphical-session.target" ];
-      Wants = [ "graphical-session-pre.target" ];
-      After = [ "graphical-session-pre.target" ];
     };
   };
 }

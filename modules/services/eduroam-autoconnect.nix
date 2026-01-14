@@ -12,13 +12,79 @@ let
   script = pkgs.writeShellScript "eduroam-autoconnect" ''
     set -euo pipefail
 
-    : ''${EDUROAM_IDENTITY:?EDUROAM_IDENTITY is required}
-    : ''${EDUROAM_PASSWORD_FILE:?EDUROAM_PASSWORD_FILE is required}
-
     SSID="eduroam"
     CONN_FILE="/etc/NetworkManager/system-connections/eduroam.nmconnection"
     UUID_DIR="/var/lib/eduroam-autoconnect"
     UUID_FILE="$UUID_DIR/uuid"
+    MODE="''${1:-install}" # install|watch
+
+    get_wifi_dev() {
+      ${nmcli} -t -f DEVICE,TYPE device status | ${gawk} -F: '$2=="wifi"{print $1; exit}'
+    }
+
+    profile_exists() {
+      # True if a connection profile named $SSID exists in NetworkManager
+      ${nmcli} -t -f NAME connection show | ${gnugrep} -Fxq "$SSID"
+    }
+
+    ssid_visible() {
+      local dev="$1"
+      # Trigger a scan and check for SSID presence.
+      # (We ignore errors here because some drivers block scans while connected.)
+      ${nmcli} device wifi rescan ifname "$dev" || true
+      ${nmcli} -t -f SSID device wifi list ifname "$dev" | ${gnugrep} -Fxq "$SSID"
+    }
+
+    active_conn() {
+      local dev="$1"
+      ${nmcli} -t -f GENERAL.CONNECTION device show "$dev" | ${gawk} -F: '{print $2}'
+    }
+
+    # Prevent overlap between timer ticks / manual runs.
+    LOCK="/run/eduroam-autoconnect.lock"
+    exec 9>"$LOCK"
+    ${utilLinux}/flock -w 5 9 || exit 0
+
+    WIFI_DEV="$(get_wifi_dev || true)"
+    if [ -z "''${WIFI_DEV:-}" ]; then
+      exit 0
+    fi
+
+    if [ "$MODE" = "watch" ]; then
+      if [ "${lib.boolToString cfg.enableWatcher}" != "true" ]; then
+        exit 0
+      fi
+
+      # In watch mode: do NOT rewrite profiles or reload NM.
+      # Only switch when the SSID is visible and we're not already on it.
+      if ! ssid_visible "$WIFI_DEV"; then
+        exit 0
+      fi
+
+      ACTIVE="$(active_conn "$WIFI_DEV" || true)"
+      if [ "''${ACTIVE:-}" = "$SSID" ]; then
+        exit 0
+      fi
+
+      # Ensure the profile exists (installed by the profile service).
+      if ! profile_exists; then
+        echo "eduroam-autoconnect: profile '$SSID' not found; skipping switch" >&2
+        exit 0
+      fi
+
+      if [ "${lib.boolToString cfg.switchWhenDetected}" = "true" ]; then
+        ${nmcli} connection up id "$SSID" ifname "$WIFI_DEV" || true
+      fi
+      exit 0
+    fi
+
+    if [ "$MODE" != "install" ]; then
+      echo "eduroam-autoconnect: unknown mode: $MODE (expected install|watch)" >&2
+      exit 2
+    fi
+
+    : ''${EDUROAM_IDENTITY:?EDUROAM_IDENTITY is required}
+    : ''${EDUROAM_PASSWORD_FILE:?EDUROAM_PASSWORD_FILE is required}
 
     if [ ! -r "$EDUROAM_PASSWORD_FILE" ]; then
       echo "eduroam-autoconnect: password file not readable: $EDUROAM_PASSWORD_FILE" >&2
@@ -76,34 +142,14 @@ EOF
     # Reload profiles so NM sees changes.
     ${nmcli} connection reload || true
 
+    # One-shot optional connect (boot/login) - only when SSID is visible.
     if [ "${lib.boolToString cfg.attemptConnectNow}" = "true" ]; then
-      ${nmcli} connection up id "$SSID" || true
-    fi
-
-    if [ "${lib.boolToString cfg.enableWatcher}" != "true" ]; then
-      exit 0
-    fi
-
-    # Watcher logic (used by the timer): if eduroam is visible, switch/connect to it.
-    WIFI_DEV="$(${nmcli} -t -f DEVICE,TYPE device status | ${gawk} -F: '$2=="wifi"{print $1; exit}')"
-    if [ -z "$WIFI_DEV" ]; then
-      exit 0
-    fi
-
-    # Trigger a scan and check for SSID presence.
-    # (We ignore errors here because some drivers block scans while connected.)
-    ${nmcli} device wifi rescan ifname "$WIFI_DEV" || true
-    if ! ${nmcli} -t -f SSID device wifi list ifname "$WIFI_DEV" | ${gnugrep} -Fxq "$SSID"; then
-      exit 0
-    fi
-
-    ACTIVE="$(${nmcli} -t -f GENERAL.CONNECTION device show "$WIFI_DEV" | ${gawk} -F: '{print $2}')"
-    if [ "$ACTIVE" = "$SSID" ]; then
-      exit 0
-    fi
-
-    if [ "${lib.boolToString cfg.switchWhenDetected}" = "true" ]; then
-      ${nmcli} connection up id "$SSID" ifname "$WIFI_DEV" || true
+      if ssid_visible "$WIFI_DEV"; then
+        ACTIVE="$(active_conn "$WIFI_DEV" || true)"
+        if [ "''${ACTIVE:-}" != "$SSID" ]; then
+          ${nmcli} connection up id "$SSID" ifname "$WIFI_DEV" || true
+        fi
+      fi
     fi
   '';
 in
@@ -182,7 +228,7 @@ in
           "EDUROAM_IDENTITY=${cfg.identity}"
           "EDUROAM_PASSWORD_FILE=${cfg.passwordFile}"
         ];
-        ExecStart = script;
+        ExecStart = "${script} install";
         StandardOutput = "journal";
         StandardError = "journal";
       };
@@ -192,14 +238,14 @@ in
     systemd.services.eduroam-autoconnect-watch = lib.mkIf cfg.enableWatcher {
       description = "Periodically switch/connect to eduroam when detected";
       wants = [ "NetworkManager.service" ];
-      after = [ "NetworkManager.service" ];
+      after = [ "NetworkManager.service" "eduroam-autoconnect-profile.service" ];
       serviceConfig = {
         Type = "oneshot";
         Environment = [
           "EDUROAM_IDENTITY=${cfg.identity}"
           "EDUROAM_PASSWORD_FILE=${cfg.passwordFile}"
         ];
-        ExecStart = script;
+        ExecStart = "${script} watch";
         StandardOutput = "journal";
         StandardError = "journal";
       };

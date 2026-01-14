@@ -18,7 +18,6 @@
   systemd.user.services.fcitx5 = {
     Unit = {
       Description = "Fcitx5 input method";
-      PartOf = [ "hyprland-session.target" ];
     };
 
     Service = {
@@ -27,7 +26,7 @@
     };
 
     Install = {
-      WantedBy = [ "hyprland-session.target" ];
+      WantedBy = [ "graphical-session.target" ];
     };
   };
 
