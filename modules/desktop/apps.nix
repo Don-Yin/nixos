@@ -4,6 +4,7 @@
   hardware.graphics.enable = true;
   nixpkgs.config.allowUnfree = true;
   programs.hyprland = { enable = true; xwayland.enable = true; };
+  security.rtkit.enable = true;   # real-time priority for PipeWire (glitch-free audio)
   services.power-profiles-daemon.enable = true;
   services.gnome.gnome-keyring.enable = true;
   security.pam.services.login.enableGnomeKeyring = true;
@@ -11,6 +12,7 @@
   environment.systemPackages = [
     # CLI / core
     pkgs.git
+    pkgs.git-lfs
     pkgs.htop
     pkgs.tmux
 
@@ -28,6 +30,11 @@
     pkgs.pavucontrol
     pkgs.helvum
     pkgs.seahorse
+
+    # Wallpaper & media
+    pkgs.swww
+    pkgs.playerctl
+    pkgs.libnotify
 
     # Theming / runtime glue
     pkgs.adwaita-icon-theme

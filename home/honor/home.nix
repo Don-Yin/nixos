@@ -41,6 +41,7 @@
     "hypr/hyprland.conf".source = ./configurations/hyprland/hyprland.conf;
     "hypr/hyprland.base.conf".source = ./configurations/hyprland/hyprland.base.conf;
     "hypr/hyprland.custom.conf".source = ./configurations/hyprland/hyprland.custom.conf;
+    "hypr/wallpaper.sh" = { source = ./configurations/hyprland/wallpaper.sh; executable = true; };
     "waybar/config".source = ./configurations/waybar/config;
     "waybar/style.css".source = ./configurations/waybar/style.css;
     "wofi/config".source = ./configurations/wofi/config;

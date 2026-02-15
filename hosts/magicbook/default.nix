@@ -54,7 +54,6 @@
   # uinput for xremap
   hardware.uinput.enable = true;
   users.groups.uinput.members = [ "honor" ];
-  users.groups.input.members = [ "honor" ];
 
   system.stateVersion = "25.11";
 }

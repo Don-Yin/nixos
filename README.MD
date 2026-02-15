@@ -1,3 +1,9 @@
+## bootstrap (new machine)
+
+```bash
+nix-shell -p git git-lfs --run "git lfs install && git clone https://github.com/Don-Yin/nixos.git ~/nix-configurations && sudo nixos-rebuild switch --flake ~/nix-configurations#magicbook"
+```
+
 ## usage
 
 Apply changes to the system (rebuild):
@@ -33,7 +39,8 @@ nix-configurations/
 ├── flake.nix
 ├── flake.lock
 ├── README.MD
-├── scripts/                    # was: loose at root
+├── assets/wallpapers/          # Git LFS
+├── scripts/
 │   ├── rebuild-and-reboot.sh
 │   └── remove-cache.sh
 ├── secrets/

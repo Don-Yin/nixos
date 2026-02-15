@@ -1,67 +1,64 @@
-/* 
- * Wofi Style - Hyprland Blue & Semi-Transparent
- */
-
 window {
-    margin: 0px;
-    border: 2px solid #33ccff; /* Hyprland Blue border */
-    background-color: rgba(30, 30, 46, 0.8); /* Semi-transparent base #1e1e2e */
+    margin: 0;
+    border: 1px solid rgba(198, 160, 246, 0.25);
+    background-color: rgba(24, 25, 38, 0.82);
     border-radius: 16px;
     font-family: "JetBrainsMono Nerd Font", monospace;
     font-size: 14px;
 }
 
 #input {
-    margin: 10px;
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    color: #cdd6f4;
-    background-color: rgba(49, 50, 68, 0.5); /* Surface0 semi-transparent */
-    font-weight: bold;
+    margin: 12px;
+    padding: 10px 14px;
+    border: 1px solid rgba(183, 189, 248, 0.15);
+    border-radius: 12px;
+    color: #cad3f5;
+    background-color: rgba(54, 58, 79, 0.5);
 }
 
 #input:focus {
+    border-color: rgba(198, 160, 246, 0.4);
     box-shadow: none;
     outline: none;
 }
 
 #inner-box {
-    margin: 10px;
+    margin: 4px 12px;
     border: none;
     background-color: transparent;
 }
 
 #outer-box {
-    margin: 5px;
+    margin: 0;
     border: none;
     background-color: transparent;
 }
 
 #scroll {
-    margin: 0px;
+    margin: 0;
     border: none;
 }
 
 #text {
-    margin: 5px;
+    margin: 4px;
     border: none;
-    color: #cdd6f4;
+    color: #a5adcb;
 }
 
 #entry {
-    margin: 5px;
-    padding: 10px;
+    margin: 2px 4px;
+    padding: 8px 12px;
     border: none;
     border-radius: 10px;
     background-color: transparent;
+    transition: all 0.15s ease;
 }
 
 #entry:selected {
-    background-color: #33ccff; /* Hyprland Blue */
-    color: #1e1e2e; /* Dark text on selection */
+    background-color: rgba(198, 160, 246, 0.2);
+    border: 1px solid rgba(198, 160, 246, 0.3);
 }
 
 #entry:selected #text {
-    color: #1e1e2e;
+    color: #cad3f5;
 }

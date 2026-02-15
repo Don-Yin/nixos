@@ -1,213 +1,149 @@
-/* 
- * Waybar Style - Clean Hyprland Blue Design
- */
-
 * {
     border: none;
     border-radius: 0;
-    font-family: "JetBrainsMono Nerd Font", Roboto, Helvetica, Arial, sans-serif;
-    font-size: 13px;
+    font-family: "JetBrainsMono Nerd Font", monospace;
+    font-size: 12px;
+    font-weight: 500;
     min-height: 0;
+    padding: 0;
+    margin: 0;
 }
 
 window#waybar {
     background: transparent;
-    color: #cdd6f4;
+    color: #a5adcb;
 }
 
-window#waybar.hidden {
-    opacity: 0.2;
+.modules-left,
+.modules-center,
+.modules-right {
+    background: rgba(24, 25, 38, 0.65);
+    border-radius: 10px;
+    border: 1px solid rgba(54, 58, 79, 0.5);
+    padding: 0 4px;
+    margin: 2px 0;
 }
 
-/* Main bar container with proper margins */
-#waybar {
-    background: rgba(30, 30, 46, 0.85);
-    margin: 8px 12px;
-    padding: 0;
-    border-radius: 0;
-    border: 2px solid rgba(51, 204, 255, 0.4);
-}
-
-/* Workspaces */
+/* ── Workspaces ── */
 #workspaces {
-    background-color: rgba(49, 50, 68, 0.6);
-    margin: 0;
     padding: 0;
-    border-radius: 0;
 }
 
 #workspaces button {
-    padding: 4px 10px;
-    background-color: transparent;
-    color: #cdd6f4;
-    border-radius: 0;
-    transition: all 0.3s ease;
-    min-width: 30px;
+    color: #494d64;
+    background: transparent;
+    border-radius: 6px;
+    padding: 2px 0;
+    margin: 3px 2px;
+    min-width: 24px;
+    min-height: 24px;
+    font-size: 11px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    transition: color 0.15s ease;
 }
 
 #workspaces button:hover {
-    background: rgba(51, 204, 255, 0.2);
+    color: #6e738d;
+    background: transparent;
+    border-color: transparent;
 }
 
 #workspaces button.active {
-    background-color: #33ccff;
-    color: #1e1e2e;
-    font-weight: bold;
+    color: #c6a0f6;
+    background: transparent;
+    border: 1px solid rgba(198, 160, 246, 0.3);
+    font-weight: 500;
 }
 
 #workspaces button.urgent {
-    background-color: #f38ba8;
-    color: #1e1e2e;
+    color: #ed8796;
+    background: transparent;
+    border-color: transparent;
 }
 
-/* Module Pills - General Style */
-#clock,
-#battery,
-#cpu,
-#memory,
-#temperature,
-#backlight,
-#network,
-#pulseaudio,
-#tray,
-#power-profiles-daemon,
-#language {
-    padding: 4px 12px;
-    margin: 0;
-    background-color: rgba(49, 50, 68, 0.6);
-    border-radius: 0;
-    color: #cdd6f4;
-    border: 1px solid rgba(51, 204, 255, 0.2);
-    transition: all 0.3s ease;
+/* ── Wallpaper indicator ── */
+#custom-wallpaper {
+    color: #494d64;
+    font-size: 11px;
+    padding: 0 8px;
+    transition: color 0.3s ease;
 }
 
-/* Hover effects for interactive modules */
-#power-profiles-daemon:hover,
-#pulseaudio:hover,
-#network:hover,
-#battery:hover,
-#backlight:hover {
-    background-color: rgba(51, 204, 255, 0.3);
-    border-color: rgba(51, 204, 255, 0.6);
+#custom-wallpaper:hover {
+    color: #f5bde6;
 }
 
-/* Power Profile - Prominent left corner */
-#power-profiles-daemon {
-    background-color: rgba(51, 204, 255, 0.3);
-    color: #33ccff;
-    font-size: 16px;
-    padding: 4px 14px;
-    margin-left: 0;
-    border: 1px solid rgba(51, 204, 255, 0.5);
-    border-radius: 0;
-}
-
-#power-profiles-daemon:hover {
-    background-color: rgba(51, 204, 255, 0.5);
-    box-shadow: 0 0 8px rgba(51, 204, 255, 0.4);
-}
-
-/* Clock - Center, clean */
+/* ── Clock ── */
 #clock {
-    background-color: rgba(30, 30, 46, 0.8);
-    font-size: 14px;
-    font-weight: bold;
-    color: #33ccff;
-    border: 1px solid rgba(51, 204, 255, 0.2);
-    padding: 4px 16px;
+    color: #cad3f5;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    padding: 0 12px;
 }
 
-/* Status indicators with color coding */
-#battery {
-    color: #a6e3a1;
-}
-
-#battery.charging, #battery.plugged {
-    color: #94e2d5;
-}
-
-#battery.warning {
-    color: #f9e2af;
-}
-
-#battery.critical:not(.charging) {
-    background-color: #f38ba8;
-    color: #1e1e2e;
-    animation: blink 0.5s linear infinite alternate;
-}
-
-@keyframes blink {
-    to {
-        background-color: #ffffff;
-        color: #000000;
-    }
-}
-
-#network {
-    color: #33ccff;
-}
-
-#network.disconnected {
-    color: #f38ba8;
-}
-
-#pulseaudio {
-    color: #33ccff;
-}
-
-#pulseaudio.muted {
-    color: #f38ba8;
-}
-
-#cpu {
-    color: #89b4fa;
-}
-
-#memory {
-    color: #cba6f7;
-}
-
-#temperature {
-    color: #f9e2af;
-}
+/* ── System stats ── */
+#cpu         { color: #c6a0f6; padding: 0 8px; }
+#memory      { color: #8bd5ca; padding: 0 8px; }
+#temperature { color: #f5a97f; padding: 0 8px; }
 
 #temperature.critical {
-    color: #f38ba8;
-    background-color: rgba(243, 139, 168, 0.2);
+    color: #ed8796;
 }
 
-#backlight {
-    color: #f9e2af;
+/* ── Separator ── */
+#custom-separator {
+    color: #363a4f;
+    padding: 0 2px;
+    font-size: 11px;
 }
 
-#language {
-    color: #b4befe;
-}
-
-/* Tray */
+/* ── Right modules ── */
+#pulseaudio,
+#backlight,
+#network,
+#battery,
 #tray {
-    background-color: rgba(30, 30, 46, 0.6);
-    padding: 4px 8px;
-    margin-right: 0;
+    padding: 0 8px;
+    font-size: 12px;
+}
+
+#pulseaudio       { color: #c6a0f6; }
+#pulseaudio.muted { color: #494d64; }
+#backlight        { color: #eed49f; }
+#network          { color: #8bd5ca; }
+#network.disconnected { color: #494d64; }
+#battery          { color: #a6da95; }
+#battery.charging,
+#battery.plugged  { color: #8bd5ca; }
+#battery.warning  { color: #eed49f; }
+
+#battery.critical:not(.charging) {
+    color: #ed8796;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    50% { opacity: 0.5; }
+}
+
+#tray {
+    padding: 0 6px;
 }
 
 #tray > .passive {
     -gtk-icon-effect: dim;
 }
 
-#tray > .needs-attention {
-    -gtk-icon-effect: highlight;
-    background-color: #f38ba8;
-}
-
-/* Tooltips */
 tooltip {
-    background: rgba(30, 30, 46, 0.95);
-    border: 2px solid #33ccff;
+    background: rgba(24, 25, 38, 0.9);
+    border: 1px solid rgba(54, 58, 79, 0.6);
     border-radius: 8px;
-    padding: 8px;
+    padding: 6px 10px;
 }
 
 tooltip label {
-    color: #cdd6f4;
+    color: #cad3f5;
+    font-size: 11px;
 }

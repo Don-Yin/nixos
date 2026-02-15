@@ -4,57 +4,51 @@
   programs.kitty = {
     enable = true;
     settings = {
-      # Style & Transparency
-      background_opacity = "0.8";
-      window_padding_width = 10;
-      
-      # Fonts
+      background_opacity = "0.82";
+      window_padding_width = 12;
+      confirm_os_window_close = 0;
+
       font_family = "Iosevka Nerd Font";
       font_size = 12;
 
-      # Hyprland Blue Theme
-      foreground = "#cdd6f4";
-      background = "#1e1e2e";
-      selection_foreground = "#1e1e2e";
-      selection_background = "#33ccff"; # Hyprland Blue
+      # Catppuccin Macchiato
+      foreground = "#cad3f5";
+      background = "#24273a";
+      selection_foreground = "#24273a";
+      selection_background = "#f4dbd6";
 
-      # Cursor
-      cursor = "#33ccff";
-      cursor_text_color = "#1e1e2e";
+      cursor = "#f4dbd6";
+      cursor_text_color = "#24273a";
 
-      # URL
-      url_color = "#33ccff";
+      url_color = "#f4dbd6";
 
-      # Border
-      active_border_color = "#33ccff";
-      inactive_border_color = "#585b70";
+      active_border_color = "#b7bdf8";
+      inactive_border_color = "#6e738d";
 
-      # Color Palette (Blue-focused)
       # Black
-      color0 = "#45475a";
-      color8 = "#585b70";
+      color0 = "#494d64";
+      color8 = "#5b6078";
       # Red
-      color1 = "#f38ba8";
-      color9 = "#f38ba8";
+      color1 = "#ed8796";
+      color9 = "#ed8796";
       # Green
-      color2 = "#a6e3a1";
-      color10 = "#a6e3a1";
+      color2 = "#a6da95";
+      color10 = "#a6da95";
       # Yellow
-      color3 = "#f9e2af";
-      color11 = "#f9e2af";
-      # Blue (Hyprland Blue)
-      color4 = "#33ccff";
-      color12 = "#33ccff";
+      color3 = "#eed49f";
+      color11 = "#eed49f";
+      # Blue
+      color4 = "#8aadf4";
+      color12 = "#8aadf4";
       # Magenta
-      color5 = "#f5c2e7";
-      color13 = "#f5c2e7";
+      color5 = "#f5bde6";
+      color13 = "#f5bde6";
       # Cyan
-      color6 = "#94e2d5";
-      color14 = "#94e2d5";
+      color6 = "#8bd5ca";
+      color14 = "#8bd5ca";
       # White
-      color7 = "#bac2de";
-      color15 = "#a6adc8";
+      color7 = "#b8c0e0";
+      color15 = "#a5adcb";
     };
   };
 }
-
