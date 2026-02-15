@@ -1,30 +1,49 @@
-## notes
+## usage
 
-- when in Cursor SSH access, grant access to the entire dir: `sudo chown -R honor:users /etc/nixos`
-- proxy setup for git push:
-  ```bash
-  export http_proxy="http://192.168.1.5:1082" && export https_proxy="http://192.168.1.5:1082" && sudo -E git push -u origin main
-  ```
+Apply changes to the system (rebuild):
+
+```bash
+# from this directory
+sudo nixos-rebuild switch --flake .#magicbook
+
+# from anywhere
+sudo nixos-rebuild switch --flake ~/nix-configurations#magicbook
+
+# or use the helper script
+NO_REBOOT=1 source ~/nix-configurations/scripts/rebuild-and-reboot.sh
+```
 
 ## cleanup
-```bash
-sudo nix-collect-garbage -d && nix-store --optimise
-```
-
-## usage
-to apply changes to the system (rebuild):
+remove old generations and garbage-collect the Nix store:
 
 ```bash
-# apply configuration for 'magicbook' host
-nixos-rebuild switch --flake .#magicbook
+source ~/nix-configurations/scripts/remove-cache.sh
 ```
 
-if you are not in this directory:
+## proxy (China)
+
 ```bash
-sudo nixos-rebuild switch --flake ~/nix-configurations#magicbook
+export http_proxy="http://192.168.1.5:1082"
+export https_proxy="http://192.168.1.5:1082"
+sudo -E git push -u origin main
 ```
 
-## todos
-- [x] better solutions to keys remapping
-- [] in cursor super key should function like command on macos
-
+# files
+nix-configurations/
+├── flake.nix
+├── flake.lock
+├── README.MD
+├── scripts/                    # was: loose at root
+│   ├── rebuild-and-reboot.sh
+│   └── remove-cache.sh
+├── secrets/
+├── hosts/magicbook/
+├── modules/
+│   ├── desktop/   (apps, font)
+│   ├── services/  (openssh, vpn, eduroam)
+│   └── system/    (network, timezone, users)  # users.nix moved here
+└── home/honor/
+    ├── home.nix
+    ├── dotfiles/
+    ├── configurations/  (hyprland, kitty, waybar, wofi)
+    └── services/        (input, session, xremap)

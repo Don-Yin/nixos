@@ -1,10 +1,10 @@
 #!/usr/bin/env bash
 # Source this script to rebuild and reboot immediately.
 # Usage:
-#   source /home/honor/nix-configurations/rebuild-and-reboot.sh
+#   source /home/honor/nix-configurations/scripts/rebuild-and-reboot.sh
 #
 # Optional:
-#   NO_REBOOT=1 source /home/honor/nix-configurations/rebuild-and-reboot.sh
+#   NO_REBOOT=1 source /home/honor/nix-configurations/scripts/rebuild-and-reboot.sh
 
 set -uo pipefail
 
@@ -23,7 +23,7 @@ if sudo nixos-rebuild switch --flake "$flake"; then
 else
   rc=$?
   echo "rebuild-and-reboot: nixos-rebuild failed (exit $rc). Not rebooting." >&2
-  echo "rebuild-and-reboot: fix the error above, then re-run: source ${repo}/rebuild-and-reboot.sh" >&2
+  echo "rebuild-and-reboot: fix the error above, then re-run: source ${repo}/scripts/rebuild-and-reboot.sh" >&2
   if [[ "$is_sourced" = "1" ]]; then
     return "$rc"
   else

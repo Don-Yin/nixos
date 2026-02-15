@@ -29,23 +29,6 @@
     };
   };
 
-  # Ensure KDE Connect daemon starts in the session (service is provided by kdeconnect).
-  systemd.user.services.kdeconnect-autostart = {
-    Unit = {
-      Description = "KDE Connect autostart";
-      PartOf = [ "hyprland-session.target" ];
-      After = [ "hyprland-session.target" ];
-    };
-
-    Service = {
-      Type = "oneshot";
-      ExecStart = "${pkgs.systemd}/bin/systemctl --user start app-org.kde.kdeconnect.daemon@autostart.service";
-    };
-
-    Install = {
-      WantedBy = [ "hyprland-session.target" ];
-    };
-  };
 }
 
 

@@ -10,7 +10,7 @@ let
   #
   # - Then, in *specific apps*, map Super+Key -> Ctrl+Key for common shortcuts:
   #   - Chrome: copy/paste/tab close + tab switching
-  #   - Cursor: same, plus Ctrl+Shift+C/V for integrated terminal copy/paste
+  #   - Other apps: can add more blocks below following the Chrome pattern
   #
   # Notes:
   # - Hyprland uses $mainMod = SUPER so physical Alt becomes your WM modifier (via the swap).
@@ -21,7 +21,6 @@ let
   swapAltSuper = true;
 
   chromeApps = [ "google-chrome" "Google-chrome" "google-chrome-stable" "Google-chrome-stable" ];
-  cursorApps = [ "cursor" "Cursor" ];
 
   superAsCtrlCommon = {
     "Super-c" = "C-c";
@@ -42,21 +41,6 @@ let
     "Super-Alt-Right" = "C-Tab";
   };
 
-  cursorExtra = {
-    # Cursor/VSCode integrated terminal uses Ctrl+Shift+C/V for copy/paste.
-    "Super-Shift-c" = "C-Shift-c";
-    "Super-Shift-v" = "C-Shift-v";
-
-    # Word navigation in editor: make physical Alt+Left/Right behave like Ctrl+Left/Right.
-    # (Because we swap Alt<->Super, physical Alt becomes Super.)
-    "Super-Left" = "C-Left";
-    "Super-Right" = "C-Right";
-
-    # Line navigation (mac Fn-style): physical Super becomes Alt via the swap.
-    # So map physical Super+Left/Right to Home/End.
-    "Alt-Left" = "Home";
-    "Alt-Right" = "End";
-  };
 in
 {
   imports = [
@@ -93,11 +77,6 @@ in
           name = "Chrome: Super-as-Ctrl shortcuts";
           application = { only = chromeApps; };
           remap = superAsCtrlCommon // chromeExtra;
-        }
-        {
-          name = "Cursor: Super-as-Ctrl shortcuts";
-          application = { only = cursorApps; };
-          remap = superAsCtrlCommon // cursorExtra;
         }
       ];
     };

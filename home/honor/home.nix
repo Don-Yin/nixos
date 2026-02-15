@@ -38,9 +38,6 @@
 
   # Manage dotfiles via Home Manager
   xdg.configFile = {
-    # Cursor keybindings (VSCode-compatible). This makes Cmd+V work in the integrated terminal
-    # after our Alt<->Super swap + xremap mappings (Cmd+V -> Ctrl+V).
-    "Cursor/User/keybindings.json" = { source = ./configurations/cursor/keybindings.json; force = true; };
     "hypr/hyprland.conf".source = ./configurations/hyprland/hyprland.conf;
     "hypr/hyprland.base.conf".source = ./configurations/hyprland/hyprland.base.conf;
     "hypr/hyprland.custom.conf".source = ./configurations/hyprland/hyprland.custom.conf;
